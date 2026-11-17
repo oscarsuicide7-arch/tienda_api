@@ -6,6 +6,7 @@ const routesProductos = require('./routes/routesProductos.js');
 //Llamar a la ruta de Categoria
 const routesCategoria = require('./routes/routesCategoria.js')
 
+const routesAuth = require('./routes/routesAuth.js');
 //Crear una aplicacion de express
 const app = express();
 app.use(express.json());
@@ -15,6 +16,9 @@ app.use('/productos', routesProductos);
 
 //Rutas de Categoria
 app.use('/categorias',routesCategoria);
+
+//Rutas de autenticacion
+app.use('/auth', routesAuth);
 
 //Ruta no encontrada (404)
 app.use((req, res) => {
@@ -29,3 +33,9 @@ app.use((err, req, res, next) => {
 
 // Sirve para exportar o empaquetar la aplicacion
 module.exports = app;
+
+app.use((err, req, res, next) => {
+    console.error('ERROR REAL:', err); // <-- Añade esta línea
+    console.error(err.stack);
+    res.status(500).json({ error: 'Error interno del servidor' });
+});
