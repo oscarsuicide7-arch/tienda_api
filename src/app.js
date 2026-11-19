@@ -10,7 +10,11 @@ const routesAuth = require('./routes/routesAuth.js');
 //Crear una aplicacion de express
 const app = express();
 app.use(express.json());
+// arriba, junto a las otras rutas
+const routesPedido = require('./routes/routesPedidos.js');
 
+// debajo de app.use('/auth', ...) y ANTES del 404
+app.use('/pedidos', routesPedido);
 //Rutas de productos
 app.use('/productos', routesProductos);
 

@@ -45,10 +45,15 @@ async function eliminarProducto(id){
     return r.rows[0];
 }
 
+async function actualizarStock(id, nuevoStock){
+    const r = await pool.query(`UPDATE productos SET stock = $1 WHERE id = $2 RETURNING *`, [nuevoStock, id]);
+    return r.rows[0];
+}
 module.exports = {
     listarProductos,
     obtenerProductoPorId,
     crearProducto,
     actualizarProducto,
-    eliminarProducto
+    eliminarProducto,
+    actualizarStock
 }
